@@ -5,30 +5,25 @@
 
 ## Features
 
-- สามารถจัดเก็บข้อมูล อุณหภูมิ ความชื้น เวลา โดยใช้ Python อ่านข้อมูลและส่ง http post ไปยัง server     
-
-- สามารถอ่านข้อมูล จาก sensor อุณหภูมิ ความชื้น เวลา ที่ถูกเก็บบนฐานข้อมูล
+- สามารถจัดเก็บข้อมูล อุณหภูมิ ความชื้น เวลา โดยใช้ Python อ่านข้อมูลและส่ง http post ไปยัง server
+- สามารถอ่านข้อมูลจาก Sensor อุณหภูมิ ความชื้น เวลา ที่ถูกเก็บบนฐานข้อมูล
 
 ## จัดเก็บข้อมูลใน Database
 
-### อ่าข้อมูลจาก Sensor โดยใช้ Python
-
+### อ่านข้อมูลจาก Sensor โดยใช้ Python 
 ```py
 import sys
 import Adafruit_DHT
 import busio
 import adafruit_ds3231
 from board import *
-
-rtcI2C = busio.I2C(SCL,SDA)
-rtc = adafruit_ds3231.DS3231(rtcI2C)
-
-t=rtc.datatime
-
+rtcI2C=busio.I2C(SCL,SDA)
+rtc=adafruit_ds3231.DS3231(rtcI2C)
+t=rtc.datetime
 while True:
     humidity, temperature = Adafruit_DHT.read_retry(11,24)
     if humidity is not None and temperature is not None:
-        tempSensorRTC = {
+        tempSensorRTC={
             "temperature": temperature,
             "humidity": humidity,
             "year": t.tm_year,
@@ -40,10 +35,9 @@ while True:
         print(tempSensorRTC)
 ```
 
-### ส่งข้อมูลไปยัง server โดยใช้ http post
+### ส่งข้อมูลไปยัง server โดยใช้ hppt post
 ```py
 import requests
-
 tempSensorRTC={...}
 requests.post('http://localhost:3009/addData',tempSensorRTC)
 ```
@@ -51,12 +45,11 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
 ## อ่านข้อมูลจากฐานข้อมูล
 
 ### Mongoose
-- Schema
+- schema
     ```js
-    var mongoose = require('mongoose');
-    var Schma = mongoose.Schema;
-
-    var tempSensorRTCchema = new Schema({
+    var mongoose=require('mongoose');
+    var Schema=mongoose.Schema;
+    var tempSensorRTCSchema=new Schema({
         temperature: Number,
         humidity: Number,
         year: Number,
@@ -65,18 +58,14 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
         hour: Number,
         minute: Number
     });
-    ```
-
+    ``` 
 - model
-
-```js
-        const temp_rtc = mongoose.model('temp_rtc',tempSencorRTCSchema);
-```
-
-- method
-
-```js
-        temp_rtc.find({},(err.data)=>{
-            if(!err)res.render('index',{tempData: data});
-            });
-```    
+    ```js
+    const temp_rtc=mongoose.model('temp_rtc',tempSensorRTCSchema);
+    ```
+    - method
+        ```js
+        temp_rtc.find({},(err,data)=>{
+	        if(!err)res.render('index',{tempData: data});
+        });
+        ```
