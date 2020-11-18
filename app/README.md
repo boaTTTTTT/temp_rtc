@@ -77,10 +77,12 @@ requests.post('http://localhost:3012/addData',tempSensorRTC)
 
     const temp_rtc=mongoose.model('temp_rtc',tempSensorRTCSchema);
     ```
+
+    
     - method
         ```js
 
-        
+
         temp_rtc.find({},(err,data)=>{
 	        if(!err)res.render('index',{tempData: data});
         });
