@@ -73,9 +73,9 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
     
  - model
     
-        ```js
+    ```js
         const temp_rtc = mongoose.model('temp_rtc',tempSencorRTCSchema);
-        ```
+    ```
         
         - method
         
