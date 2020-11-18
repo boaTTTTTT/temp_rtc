@@ -42,6 +42,7 @@ while True:
 ```
 
 ### ส่งข้อมูลไปยัง server โดยใช้ http post
+
 ```py
 import requests
 
@@ -52,6 +53,8 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
 ## อ่านข้อมูลจากฐานข้อมูล
 
 ### Mongoose
+
+
 - Schema
     ```js
     var mongoose = require('mongoose');
@@ -67,7 +70,6 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
         minute: Number
     });
     ```
-    
     
     -model
     
