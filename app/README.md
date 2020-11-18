@@ -6,11 +6,15 @@
 ## Features
 
 - สามารถจัดเก็บข้อมูล อุณหภูมิ ความชื้น เวลา โดยใช้ Python อ่านข้อมูลและส่ง http post ไปยัง server
+
+
 - สามารถอ่านข้อมูลจาก Sensor อุณหภูมิ ความชื้น เวลา ที่ถูกเก็บบนฐานข้อมูล
 
 ## จัดเก็บข้อมูลใน Database
 
 ### อ่านข้อมูลจาก Sensor โดยใช้ Python 
+
+
 ```py
 import sys
 import Adafruit_DHT
@@ -36,16 +40,22 @@ while True:
 ```
 
 ### ส่งข้อมูลไปยัง server โดยใช้ hppt post
+
+
 ```py
 import requests
 tempSensorRTC={...}
-requests.post('http://localhost:3009/addData',tempSensorRTC)
+requests.post('http://localhost:3012/addData',tempSensorRTC)
 ```
 
 ## อ่านข้อมูลจากฐานข้อมูล
 
 ### Mongoose
+
+
 - schema
+
+
     ```js
     var mongoose=require('mongoose');
     var Schema=mongoose.Schema;
@@ -60,6 +70,8 @@ requests.post('http://localhost:3009/addData',tempSensorRTC)
     });
     ``` 
 - model
+
+
     ```js
     const temp_rtc=mongoose.model('temp_rtc',tempSensorRTCSchema);
     ```
